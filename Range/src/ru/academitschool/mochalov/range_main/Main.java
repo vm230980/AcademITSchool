@@ -1,4 +1,6 @@
-package ru.academitschool.mochalov.range;
+package ru.academitschool.mochalov.range_main;
+
+import ru.academitschool.mochalov.range.Range;
 
 import java.util.Scanner;
 
