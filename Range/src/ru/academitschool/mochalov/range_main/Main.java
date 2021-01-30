@@ -49,5 +49,51 @@ public class Main {
         } else {
             System.out.printf("Третье число не принадлежит диапазону чисел от %.2f до %.2f", number1, range.getTo());
         }
+        System.out.println();
+        System.out.println();
+        System.out.println("ОПЕРАЦИИ С ИНТЕРВАЛАМИ");
+        Range range1 = new Range(-10, 9);
+        Range range2 = new Range(10, 15);
+
+        System.out.println("Интервал 1: " +
+                "(" + range1.getFrom() + ", " + range1.getTo() + ")");
+
+        System.out.println("Интервал 2: " +
+                "(" + range2.getFrom() + ", " + range2.getTo() + ")");
+
+        Range intersectionRange = range1.getIntersection(range2);
+
+        if (intersectionRange != null) {
+            System.out.println("Результат пересечения интервалов: " +
+                    "(" + intersectionRange.getFrom() + ", " + intersectionRange.getTo() + ")");
+        } else {
+            System.out.println("Результат пересечения интервалов: null");
+        }
+
+        Range[] unionRange = range1.getUnion(range2);
+
+        if (unionRange.length == 1) {
+            System.out.println("Результат объединения интервалов: " +
+                    "(" + unionRange[0].getFrom() + ", " + unionRange[0].getTo() + ")");
+        } else {
+            System.out.println("Результат объединения интервалов: " +
+                    "(" + unionRange[0].getFrom() + ", " + unionRange[0].getTo() + ") и " +
+                    "(" + unionRange[1].getFrom() + ", " + unionRange[1].getTo() + ")");
+        }
+
+        Range[] subtractionRange = range1.getSubtraction(range2);
+
+        if (subtractionRange.length == 1) {
+            if (subtractionRange[0] == null) {
+                System.out.println("Результат разности интервалов: null");
+            } else {
+                System.out.println("Результат разности интервалов: " +
+                        "(" + subtractionRange[0].getFrom() + ", " + subtractionRange[0].getTo() + ")");
+            }
+        } else {
+            System.out.println("Результат разности интервалов: " +
+                    "(" + subtractionRange[0].getFrom() + ", " + subtractionRange[0].getTo() + ") и " +
+                    "(" + subtractionRange[1].getFrom() + ", " + subtractionRange[1].getTo() + ")");
+        }
     }
 }
