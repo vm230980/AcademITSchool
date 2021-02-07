@@ -6,94 +6,80 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+/*        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите первое число диапазона: ");
-        double number1 = scanner.nextDouble();
+        System.out.println("Введите первое число интервала: ");
+        double firstNumber = scanner.nextDouble();
 
-        System.out.println("Введите второе число диапазона: ");
-        double number2 = scanner.nextDouble();
+        System.out.println("Введите второе число интервала: ");
+        double lastNumber = scanner.nextDouble();
 
         System.out.println("Введите любое третье число: ");
-        double number3 = scanner.nextDouble();
+        double number = scanner.nextDouble();
 
-        Range range = new Range(number1, number2);
+        Range range = new Range(firstNumber, lastNumber);
 
         double rangeLength = range.getLength();
-        boolean isInside = range.isInside(number3);
+        boolean isInside = range.isInside(number);
 
-        System.out.println("Длина диапазона равна: " + rangeLength);
+        System.out.println("Длина интервала равна: " + rangeLength);
 
         if (isInside) {
-            System.out.printf("Третье число принадлежит диапазону чисел от %.2f до %.2f", number1, number2);
+            System.out.printf("Третье число принадлежит интервалу чисел от %.2f до %.2f", firstNumber, lastNumber);
         } else {
-            System.out.printf("Третье число не принадлежит диапазону чисел от %.2f до %.2f", number1, number2);
+            System.out.printf("Третье число не принадлежит интервалу чисел от %.2f до %.2f", firstNumber, lastNumber);
         }
 
         System.out.println();
-        System.out.println("Введите число на которое изменить верхний предел диапазона: ");
+        System.out.println("Введите число на которое изменить верхний предел интервала: ");
         double extensionAmount = scanner.nextDouble();
 
-        range.setTo(number2 + extensionAmount);
+        range.setTo(lastNumber + extensionAmount);
 
-        System.out.println("Введите новое число для проверки принадлежности диапазону: ");
+        System.out.println("Введите новое число для проверки принадлежности интервалу: ");
         double number4 = scanner.nextDouble();
 
         rangeLength = range.getLength();
-        System.out.println("Новая длина диапазона равна: " + rangeLength);
+        System.out.println("Новая длина интервала равна: " + rangeLength);
 
         isInside = range.isInside(number4);
 
         if (isInside) {
-            System.out.printf("Третье число принадлежит диапазону чисел от %.2f до %.2f", number1, range.getTo());
+            System.out.printf("Третье число принадлежит интервалу чисел от %.2f до %.2f", firstNumber, range.getTo());
         } else {
-            System.out.printf("Третье число не принадлежит диапазону чисел от %.2f до %.2f", number1, range.getTo());
+            System.out.printf("Третье число не принадлежит интервалу чисел от %.2f до %.2f", firstNumber, range.getTo());
         }
         System.out.println();
-        System.out.println();
+        System.out.println(); */
         System.out.println("ОПЕРАЦИИ С ИНТЕРВАЛАМИ");
-        Range range1 = new Range(-10, 9);
-        Range range2 = new Range(10, 15);
+        Range range1 = new Range(5, 6);
+        Range range2 = new Range(4, 10);
 
-        System.out.println("Интервал 1: " +
-                "(" + range1.getFrom() + ", " + range1.getTo() + ")");
+        System.out.println("Интервал 1: " + range1);
 
-        System.out.println("Интервал 2: " +
-                "(" + range2.getFrom() + ", " + range2.getTo() + ")");
+        System.out.println("Интервал 2: " + range2);
 
         Range intersectionRange = range1.getIntersection(range2);
 
         if (intersectionRange != null) {
-            System.out.println("Результат пересечения интервалов: " +
-                    "(" + intersectionRange.getFrom() + ", " + intersectionRange.getTo() + ")");
+            System.out.println("Результат пересечения интервалов: " + intersectionRange);
         } else {
             System.out.println("Результат пересечения интервалов: null");
         }
 
-        Range[] unionRange = range1.getUnion(range2);
+        Range[] union = range1.getUnion(range2);
 
-        if (unionRange.length == 1) {
-            System.out.println("Результат объединения интервалов: " +
-                    "(" + unionRange[0].getFrom() + ", " + unionRange[0].getTo() + ")");
+        if (union.length == 1) {
+            System.out.print("Результат объединения интервалов: ");
+            Range.printRange(union);
         } else {
-            System.out.println("Результат объединения интервалов: " +
-                    "(" + unionRange[0].getFrom() + ", " + unionRange[0].getTo() + ") и " +
-                    "(" + unionRange[1].getFrom() + ", " + unionRange[1].getTo() + ")");
+            System.out.print("Результат объединения интервалов: ");
+            Range.printRange(union);
         }
 
-        Range[] subtractionRange = range1.getSubtraction(range2);
+        Range[] difference = range1.getDifference(range2);
 
-        if (subtractionRange.length == 1) {
-            if (subtractionRange[0] == null) {
-                System.out.println("Результат разности интервалов: null");
-            } else {
-                System.out.println("Результат разности интервалов: " +
-                        "(" + subtractionRange[0].getFrom() + ", " + subtractionRange[0].getTo() + ")");
-            }
-        } else {
-            System.out.println("Результат разности интервалов: " +
-                    "(" + subtractionRange[0].getFrom() + ", " + subtractionRange[0].getTo() + ") и " +
-                    "(" + subtractionRange[1].getFrom() + ", " + subtractionRange[1].getTo() + ")");
-        }
+        System.out.print("Результат разности интервалов: ");
+        Range.printRange(difference);
     }
 }
