@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-/*        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите первое число интервала: ");
         double firstNumber = scanner.nextDouble();
@@ -50,32 +50,28 @@ public class Main {
             System.out.printf("Третье число не принадлежит интервалу чисел от %.2f до %.2f", firstNumber, range.getTo());
         }
         System.out.println();
-        System.out.println(); */
+        System.out.println();
+
         System.out.println("ОПЕРАЦИИ С ИНТЕРВАЛАМИ");
-        Range range1 = new Range(5, 6);
-        Range range2 = new Range(4, 10);
+        Range range1 = new Range(9, 15);
+        Range range2 = new Range(9, 12);
 
         System.out.println("Интервал 1: " + range1);
 
         System.out.println("Интервал 2: " + range2);
 
-        Range intersectionRange = range1.getIntersection(range2);
+        Range intersection = range1.getIntersection(range2);
 
-        if (intersectionRange != null) {
-            System.out.println("Результат пересечения интервалов: " + intersectionRange);
+        if (intersection != null) {
+            System.out.println("Результат пересечения интервалов: " + intersection);
         } else {
             System.out.println("Результат пересечения интервалов: null");
         }
 
         Range[] union = range1.getUnion(range2);
 
-        if (union.length == 1) {
-            System.out.print("Результат объединения интервалов: ");
-            Range.printRange(union);
-        } else {
-            System.out.print("Результат объединения интервалов: ");
-            Range.printRange(union);
-        }
+        System.out.print("Результат объединения интервалов: ");
+        Range.printRange(union);
 
         Range[] difference = range1.getDifference(range2);
 
