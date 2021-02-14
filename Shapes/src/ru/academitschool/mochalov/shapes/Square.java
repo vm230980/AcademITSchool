@@ -1,9 +1,7 @@
 package ru.academitschool.mochalov.shapes;
 
-import ru.academitschool.mochalov.shape.Shape;
-
 public class Square implements Shape {
-    private double sideLength;
+    private final double sideLength;
 
     public Square(double sideLength) {
         this.sideLength = sideLength;
@@ -27,7 +25,7 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return "Фигура " + getClass().getSimpleName() + " со стороной " + sideLength;
+        return "Квадрат со стороной " + sideLength;
     }
 
     @Override

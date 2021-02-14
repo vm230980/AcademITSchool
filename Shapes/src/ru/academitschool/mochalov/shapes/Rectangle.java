@@ -1,10 +1,8 @@
 package ru.academitschool.mochalov.shapes;
 
-import ru.academitschool.mochalov.shape.Shape;
-
 public class Rectangle implements Shape {
-    private double width;
-    private double height;
+    private final double width;
+    private final double height;
 
     public Rectangle(double width, double height) {
         this.width = width;
@@ -29,7 +27,7 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "Фигура " + getClass().getSimpleName() + " со сторонами " + width + " и " + height;
+        return "Прямоугольник с шириной " + width + " и высотой " + height;
     }
 
     @Override

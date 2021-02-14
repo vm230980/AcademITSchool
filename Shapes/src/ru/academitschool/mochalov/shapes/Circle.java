@@ -1,20 +1,18 @@
 package ru.academitschool.mochalov.shapes;
 
-import ru.academitschool.mochalov.shape.Shape;
-
 public class Circle implements Shape {
-    private double radius;
+    private final double radius;
 
     public Circle(double radius) {
         this.radius = radius;
     }
 
     public double getWidth() {
-        return radius;
+        return radius * 2;
     }
 
     public double getHeight() {
-        return radius;
+        return radius * 2;
     }
 
     public double getArea() {
@@ -27,7 +25,7 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "Фигура " + getClass().getSimpleName() + " с радиусом " + radius;
+        return "Окружность с радиусом " + radius;
     }
 
     @Override
