@@ -9,74 +9,59 @@ import ru.academitschool.mochalov.shapes.Square;
 import ru.academitschool.mochalov.shapes.Triangle;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Main {
     public static Shape getMaxAreaShape(Shape[] shapes) {
-        if (shapes.length == 0) {
-            return null;
-        }
+        Comparator<Shape> areaComparator = new AreaComparator();
 
-        Arrays.sort(shapes, new AreaComparator());
+        Arrays.sort(shapes, areaComparator);
 
         return shapes[shapes.length - 1];
     }
 
     public static Shape getSecondPerimeterShape(Shape[] shapes) {
-        if (shapes.length <= 1) {
-            return null;
+        Comparator<Shape> perimeterComparator = new PerimeterComparator();
+
+        if (shapes.length == 1) {
+            return shapes[0];
         }
 
-        Arrays.sort(shapes, new PerimeterComparator());
+        Arrays.sort(shapes, perimeterComparator);
 
         return shapes[shapes.length - 2];
     }
 
     public static void main(String[] args) {
-        Shape[] shapes = {
-                new Circle(2),
-                new Rectangle(3, 5),
-                new Square(3),
-                new Triangle(1, 3, 2, 4, 0, 1),
-                new Circle(3),
-                new Rectangle(1, 3),
-                new Square(3),
-                new Triangle(-1, -1, 3, 5, 1, 4)};
+        Circle circle1 = new Circle(2);
+        Rectangle rectangle1 = new Rectangle(3, 5);
+        Square square1 = new Square(3);
+        Triangle triangle1 = new Triangle(1, 3, 2, 4, 0, 1);
+        Circle circle2 = new Circle(3);
+        Rectangle rectangle2 = new Rectangle(1, 3);
+        Square square2 = new Square(3);
+        Triangle triangle2 = new Triangle(-1, -1, 3, 5, 1, 4);
 
-        System.out.println("Ширина фигуры " + shapes[0] + " равна " + shapes[0].getWidth());
+        Shape[] shapes = {circle1, rectangle1, square1, triangle1, circle2, rectangle2, square2, triangle2};
 
-        System.out.println("Высота фигуры " + shapes[7] + " равна " + shapes[7].getHeight());
+        System.out.println("Ширина фигуры " + circle1 + " равна " + circle1.getWidth());
 
-        System.out.println();
+        System.out.println("Высота фигуры " + triangle2 + " равна " + triangle2.getHeight());
 
-        Shape maxAreaShape = getMaxAreaShape(shapes);
+        System.out.println("Фигура с максимальной площадью равной " +
+                getMaxAreaShape(shapes).getArea() + ", это: " + getMaxAreaShape(shapes));
 
-        if (maxAreaShape != null) {
-            System.out.println("Фигура с максимальной площадью равной " +
-                    maxAreaShape.getArea() + ", это: " + maxAreaShape);
-        } else {
-            System.out.println("Массив пустой");
-        }
-
-        Shape secondPerimeterShape = getSecondPerimeterShape(shapes);
-
-        if (secondPerimeterShape != null) {
-            System.out.println("Фигура со вторым по величине периметром равным " +
-                    secondPerimeterShape.getPerimeter() + ", это: " + secondPerimeterShape);
-        } else {
-            System.out.println("Массив пустой или содержит только один элемент");
-        }
-
-        System.out.println();
-        System.out.println("Отсортированный массив фигур:");
+        System.out.println("Фигура со вторым по величине периметром равным " +
+                getSecondPerimeterShape(shapes).getPerimeter() + ", это: " + getSecondPerimeterShape(shapes));
 
         for (Shape shape : shapes) {
-            System.out.println("" + shape + " | Хэшкод: " + shape.hashCode());
+            System.out.println(shape + " | Хэшкод: " + shape.hashCode());
         }
 
-        if (shapes[2].equals(shapes[6])) {
-            System.out.println("Объекты " + shapes[2] + " и " + shapes[6] + " равны");
+        if (square1.equals(square2)) {
+            System.out.println("Объекты square1 и square2 равны");
         } else {
-            System.out.println("Объекты " + shapes[2] + " и " + shapes[6] + " неравны");
+            System.out.println("Объекты square1 и square2 неравны");
         }
     }
 }

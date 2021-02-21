@@ -35,8 +35,8 @@ public class Triangle implements Shape {
                 getSideLength(x2, y2, x3, y3);
     }
 
-    private static double getSideLength(double x1, double y1, double x2, double y2) {
-        return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    public double getSideLength(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
     @Override
@@ -48,16 +48,16 @@ public class Triangle implements Shape {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object == this) {
+    public boolean equals(Object triangle) {
+        if (triangle == this) {
             return true;
         }
 
-        if (object == null || object.getClass() != getClass()) {
+        if (triangle == null || triangle.getClass() != getClass()) {
             return false;
         }
 
-        Triangle t = (Triangle) object;
+        Triangle t = (Triangle) triangle;
         return x1 == t.x1 && x2 == t.x2 && x3 == t.x3 && y1 == t.y1 && y2 == t.y2 && y3 == t.y3;
     }
 

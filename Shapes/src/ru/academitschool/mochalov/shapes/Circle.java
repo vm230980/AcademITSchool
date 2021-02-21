@@ -16,7 +16,7 @@ public class Circle implements Shape {
     }
 
     public double getArea() {
-        return Math.PI * radius * radius;
+        return Math.PI * Math.pow(radius, 2);
     }
 
     public double getPerimeter() {
@@ -29,16 +29,16 @@ public class Circle implements Shape {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object == this) {
+    public boolean equals(Object circle) {
+        if (circle == this) {
             return true;
         }
 
-        if (object == null || object.getClass() != getClass()) {
+        if (circle == null || circle.getClass() != getClass()) {
             return false;
         }
 
-        Circle c = (Circle) object;
+        Circle c = (Circle) circle;
         return radius == c.radius;
     }
 
