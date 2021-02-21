@@ -25,17 +25,25 @@ public class Range {
         this.to = to;
     }
 
+    @Override
     public String toString() {
         return "(" + from + ", " + to + ")";
     }
 
-    public static void printRange(Range[] range) {
-        if (range.length == 2) {
-            System.out.println("[(" + range[0].from + ", " + range[0].to + "), " + "(" + range[1].from + ", " + range[1].to + ")]");
-        } else if (range.length == 1) {
-            System.out.println("[(" + range[0].from + ", " + range[0].to + ")]");
+    public static String printRangeArray(Range[] rangeArray) {
+        if (rangeArray.length == 0) {
+            return "[]";
         } else {
-            System.out.println("[]");
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.append("[");
+
+            for (Range r : rangeArray) {
+                stringBuilder.append(r).append(", ");
+            }
+
+            stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "]");
+            return stringBuilder.toString();
         }
     }
 
@@ -57,7 +65,8 @@ public class Range {
 
     public Range[] getUnion(Range range) {
         if (range.from > to || from > range.to) {
-            return new Range[]{new Range(Math.min(from, range.from), Math.min(to, range.to)),
+            return new Range[]{
+                    new Range(Math.min(from, range.from), Math.min(to, range.to)),
                     new Range(Math.max(from, range.from), Math.max(to, range.to))};
         }
 

@@ -25,9 +25,9 @@ public class Main {
         System.out.println("Длина интервала равна: " + rangeLength);
 
         if (isInside) {
-            System.out.printf("Третье число принадлежит интервалу чисел от %.2f до %.2f", firstNumber, lastNumber);
+            System.out.println("Третье число принадлежит интервалу " + range);
         } else {
-            System.out.printf("Третье число не принадлежит интервалу чисел от %.2f до %.2f", firstNumber, lastNumber);
+            System.out.println("Третье число не принадлежит интервалу " + range);
         }
 
         System.out.println();
@@ -45,15 +45,15 @@ public class Main {
         isInside = range.isInside(number4);
 
         if (isInside) {
-            System.out.printf("Третье число принадлежит интервалу чисел от %.2f до %.2f", firstNumber, range.getTo());
+            System.out.println("Третье число принадлежит интервалу " + range);
         } else {
-            System.out.printf("Третье число не принадлежит интервалу чисел от %.2f до %.2f", firstNumber, range.getTo());
+            System.out.println("Третье число не принадлежит интервалу " + range);
         }
         System.out.println();
         System.out.println();
 
         System.out.println("ОПЕРАЦИИ С ИНТЕРВАЛАМИ");
-        Range range1 = new Range(9, 15);
+        Range range1 = new Range(5, 7);
         Range range2 = new Range(9, 12);
 
         System.out.println("Интервал 1: " + range1);
@@ -69,13 +69,12 @@ public class Main {
         }
 
         Range[] union = range1.getUnion(range2);
-
-        System.out.print("Результат объединения интервалов: ");
-        Range.printRange(union);
+        System.out.println("Результат объединения интервалов: " + Range.printRangeArray(union));
 
         Range[] difference = range1.getDifference(range2);
+        System.out.println("Результат разности интервалов: " + Range.printRangeArray(difference));
 
-        System.out.print("Результат разности интервалов: ");
-        Range.printRange(difference);
+        Range[] rangeArray = new Range[]{new Range(1, 5), new Range(2, 8), new Range(4, 9), new Range(10, 19)};
+        System.out.println("Массив интервалов: " + Range.printRangeArray(rangeArray));
     }
 }
