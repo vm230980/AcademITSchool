@@ -29,16 +29,16 @@ public class Square implements Shape {
     }
 
     @Override
-    public boolean equals(Object square) {
-        if (square == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
 
-        if (square == null || square.getClass() != getClass()) {
+        if (object == null || object.getClass() != getClass()) {
             return false;
         }
 
-        Square s = (Square) square;
+        Square s = (Square) object;
         return sideLength == s.sideLength;
     }
 
