@@ -31,16 +31,16 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public boolean equals(Object rectangle) {
-        if (rectangle == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
 
-        if (rectangle == null || rectangle.getClass() != getClass()) {
+        if (object == null || object.getClass() != getClass()) {
             return false;
         }
 
-        Rectangle r = (Rectangle) rectangle;
+        Rectangle r = (Rectangle) object;
         return width == r.width && height == r.height;
     }
 
