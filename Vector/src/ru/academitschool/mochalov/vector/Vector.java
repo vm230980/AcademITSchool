@@ -33,7 +33,7 @@ public class Vector {
         components = Arrays.copyOf(array, length);
     }
 
-    public int getSize() {
+    public int getArrayLength() {
         return components.length;
     }
 
@@ -112,18 +112,18 @@ public class Vector {
     public String toString() {
         if (components.length == 0) {
             return "{}";
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder.append("{");
-
-            for (Double c : components) {
-                stringBuilder.append(c).append(", ");
-            }
-
-            stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "}");
-            return stringBuilder.toString();
         }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("{");
+
+        for (Double c : components) {
+            stringBuilder.append(c).append(", ");
+        }
+
+        stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "}");
+        return stringBuilder.toString();
     }
 
     @Override

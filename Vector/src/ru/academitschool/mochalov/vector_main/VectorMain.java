@@ -49,7 +49,7 @@ public class VectorMain {
         System.out.println("Вектор 1 равен: " + vector1);
 
         //      Размерность вектора
-        System.out.println("Размерность вектора 1: " + vector1.getSize());
+        System.out.println("Размерность вектора 1: " + vector1.getArrayLength());
 
         //     Сравнение векторов
         System.out.println();
