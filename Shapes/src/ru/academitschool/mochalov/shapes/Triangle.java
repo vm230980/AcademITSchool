@@ -17,18 +17,22 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
+    @Override
     public double getWidth() {
         return Math.max(x1, Math.max(x2, x3)) - Math.min(x1, Math.min(x2, x3));
     }
 
+    @Override
     public double getHeight() {
         return Math.max(y1, Math.max(y2, y3)) - Math.min(y1, Math.min(y2, y3));
     }
 
+    @Override
     public double getArea() {
         return Math.abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2;
     }
 
+    @Override
     public double getPerimeter() {
         return getSideLength(x1, y1, x2, y2) +
                 getSideLength(x1, y1, x3, y3) +

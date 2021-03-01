@@ -40,7 +40,8 @@ public class Main {
                 new Circle(3),
                 new Rectangle(1, 3),
                 new Square(3),
-                new Triangle(-1, -1, 3, 5, 1, 4)};
+                new Triangle(-1, -1, 3, 5, 1, 4)
+        };
 
         System.out.println("Ширина фигуры " + shapes[0] + " равна " + shapes[0].getWidth());
 
