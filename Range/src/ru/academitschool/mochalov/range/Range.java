@@ -30,21 +30,21 @@ public class Range {
         return "(" + from + ", " + to + ")";
     }
 
-    public static String printRangeArray(Range[] rangeArray) {
-        if (rangeArray.length == 0) {
+    public static String getRangesArrayString(Range[] rangesArray) {
+        if (rangesArray.length == 0) {
             return "[]";
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder.append("[");
-
-            for (Range r : rangeArray) {
-                stringBuilder.append(r).append(", ");
-            }
-
-            stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "]");
-            return stringBuilder.toString();
         }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("[");
+
+        for (Range r : rangesArray) {
+            stringBuilder.append(r).append(", ");
+        }
+
+        stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "]");
+        return stringBuilder.toString();
     }
 
     public double getLength() {

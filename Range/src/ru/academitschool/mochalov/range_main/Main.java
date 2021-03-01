@@ -61,20 +61,15 @@ public class Main {
         System.out.println("Интервал 2: " + range2);
 
         Range intersection = range1.getIntersection(range2);
-
-        if (intersection != null) {
-            System.out.println("Результат пересечения интервалов: " + intersection);
-        } else {
-            System.out.println("Результат пересечения интервалов: null");
-        }
+        System.out.println("Результат пересечения интервалов: " + intersection);
 
         Range[] union = range1.getUnion(range2);
-        System.out.println("Результат объединения интервалов: " + Range.printRangeArray(union));
+        System.out.println("Результат объединения интервалов: " + Range.getRangesArrayString(union));
 
         Range[] difference = range1.getDifference(range2);
-        System.out.println("Результат разности интервалов: " + Range.printRangeArray(difference));
+        System.out.println("Результат разности интервалов: " + Range.getRangesArrayString(difference));
 
-        Range[] rangeArray = new Range[]{new Range(1, 5), new Range(2, 8), new Range(4, 9), new Range(10, 19)};
-        System.out.println("Массив интервалов: " + Range.printRangeArray(rangeArray));
+        Range[] rangesArray = new Range[]{new Range(1, 5), new Range(2, 8), new Range(4, 9), new Range(10, 19)};
+        System.out.println("Массив интервалов: " + Range.getRangesArrayString(rangesArray));
     }
 }
