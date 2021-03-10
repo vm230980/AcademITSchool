@@ -5,12 +5,12 @@ import java.util.Arrays;
 public class Vector {
     private double[] components;
 
-    public Vector(int length) {
-        if (length <= 0) {
-            throw new IllegalArgumentException("Переданная размерность вектора равна " + length + ". Размерность вектора должна быть больше 0");
+    public Vector(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Переданная размерность вектора равна " + size + ". Размерность вектора должна быть больше 0");
         }
 
-        components = new double[length];
+        components = new double[size];
     }
 
     public Vector(Vector vector) {
@@ -37,7 +37,7 @@ public class Vector {
         return components.length;
     }
 
-    public void addVector(Vector vector) {
+    public void add(Vector vector) {
         if (components.length < vector.components.length) {
             components = Arrays.copyOf(components, vector.components.length);
         }
@@ -47,7 +47,7 @@ public class Vector {
         }
     }
 
-    public void subtractVector(Vector vector) {
+    public void subtract(Vector vector) {
         if (components.length < vector.components.length) {
             components = Arrays.copyOf(components, vector.components.length);
         }
@@ -63,7 +63,7 @@ public class Vector {
         }
     }
 
-    public void Reverse() {
+    public void reverse() {
         multiplyByScalar(-1);
     }
 
@@ -130,21 +130,22 @@ public class Vector {
     public static Vector getSum(Vector vector1, Vector vector2) {
         Vector result = new Vector(vector1);
 
-        result.addVector(vector2);
+        result.add(vector2);
         return result;
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
         Vector result = new Vector(vector1);
 
-        result.subtractVector(vector2);
+        result.subtract(vector2);
         return result;
     }
 
     public static double getScalarProduct(Vector vector1, Vector vector2) {
         double scalarProduct = 0;
+        int minArrayLength = Math.min(vector1.components.length, vector2.components.length);
 
-        for (int i = 0; i < Math.min(vector1.getSize(), vector2.getSize()); i++) {
+        for (int i = 0; i < minArrayLength; i++) {
             scalarProduct += vector1.components[i] * vector2.components[i];
         }
 

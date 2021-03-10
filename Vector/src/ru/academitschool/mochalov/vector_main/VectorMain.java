@@ -13,14 +13,14 @@ public class VectorMain {
         System.out.println("Вектор 2 равен: " + vector2);
 
         // Сумма векторов
-        vector1.addVector(vector2);
+        vector1.add(vector2);
         System.out.println("Сумма векторов 1 и 2 равна: " + vector1);
         System.out.println("----------------------------");
 
         // Разность векторов
         System.out.println("Вектор 1 равен: " + vector1);
         System.out.println("Вектор 2 равен: " + vector2);
-        vector1.subtractVector(vector2);
+        vector1.subtract(vector2);
         System.out.println("Разность векторов 1 и 2 равна: " + vector1);
         System.out.println("----------------------------");
 
@@ -33,7 +33,7 @@ public class VectorMain {
 
         // Разворот вектора
         System.out.println("Вектор 1 равен: " + vector1);
-        vector1.Reverse();
+        vector1.reverse();
         System.out.println("Развернутый вектор 1 равен: " + vector1);
         System.out.println("----------------------------");
 

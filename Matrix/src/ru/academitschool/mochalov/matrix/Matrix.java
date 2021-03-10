@@ -193,7 +193,7 @@ public class Matrix {
         }
 
         for (int i = 0; i < rows.length; i++) {
-            rows[i].addVector(matrix.rows[i]);
+            rows[i].add(matrix.rows[i]);
         }
     }
 
@@ -204,7 +204,7 @@ public class Matrix {
         }
 
         for (int i = 0; i < rows.length; i++) {
-            rows[i].subtractVector(matrix.rows[i]);
+            rows[i].subtract(matrix.rows[i]);
         }
     }
 
