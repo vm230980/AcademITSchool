@@ -6,9 +6,17 @@ import ru.academitschool.mochalov.vector.Vector;
 public class MatrixMain {
     public static void main(String[] args) {
         Matrix matrix1 = new Matrix(3, 5);
-        Matrix matrix2 = new Matrix(new double[][]{{1, 2}, {4, 5, 6}, {7, 8, 9}});
+        Matrix matrix2 = new Matrix(new double[][]{{1}, {4, 5}, {7, 8, 9}});
         Matrix matrix3 = new Matrix(matrix2);
         Matrix matrix10 = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, {13, 14, 15}});
+        Vector[] vectors = new Vector[]{
+                new Vector(new double[]{1}),
+                new Vector(new double[]{1, 2}),
+                new Vector(new double[]{1, 2, 3})
+        };
+
+        Matrix matrix0 = new Matrix(vectors);
+        System.out.println("Матрица из массива векторов: " + matrix0);
 
         System.out.println("Матрица 1: " + matrix1);
         System.out.println("Матрица 2: " + matrix2);

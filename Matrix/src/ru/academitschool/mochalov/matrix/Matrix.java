@@ -2,16 +2,14 @@ package ru.academitschool.mochalov.matrix;
 
 import ru.academitschool.mochalov.vector.Vector;
 
-import java.util.Arrays;
-
 public class Matrix {
     private Vector[] rows;
 
     public Matrix(int rowsAmount, int columnsAmount) {
-        if (rowsAmount == 0 || columnsAmount == 0) {
-            throw new IllegalArgumentException("Переданное число рядов матрицы равно: " + rowsAmount +
+        if (rowsAmount < 1 || columnsAmount < 1) {
+            throw new IllegalArgumentException("Переданное число строк матрицы равно: " + rowsAmount +
                     "Переданное число столбцов матрицы равно: " + columnsAmount +
-                    ". Значения рядов и столбцов матрицы должны быть >= 1");
+                    ". Значения строк и столбцов матрицы должны быть >= 1");
         }
 
         rows = new Vector[rowsAmount];
@@ -37,7 +35,9 @@ public class Matrix {
         int maxInnerArrayLength = array[0].length;
 
         for (int i = 1; i < array.length; i++) {
-            maxInnerArrayLength = (array[i].length >= array[i - 1].length) ? array[i].length : maxInnerArrayLength;
+            if (array[i].length > maxInnerArrayLength) {
+                maxInnerArrayLength = array[i].length;
+            }
         }
 
         if (maxInnerArrayLength == 0) {
@@ -47,15 +47,35 @@ public class Matrix {
         rows = new Vector[array.length];
 
         for (int i = 0; i < array.length; i++) {
-            rows[i] = new Vector(Arrays.copyOf(array[i], maxInnerArrayLength));
+            rows[i] = new Vector(maxInnerArrayLength, array[i]);
         }
     }
 
     public Matrix(Vector[] vectors) {
+        if (vectors.length == 0) {
+            throw new IllegalArgumentException("Длина массива векторов должна быть >= 1");
+        }
+
+        int maxVectorSize = vectors[0].getSize();
+
+        for (int i = 1; i < vectors.length; i++) {
+            if (vectors[i].getSize() > maxVectorSize) {
+                maxVectorSize = vectors[i].getSize();
+            }
+        }
+
+        double[][] matrixArray = new double[vectors.length][maxVectorSize];
+
+        for (int i = 0; i < vectors.length; i++) {
+            for (int j = 0; j < vectors[i].getSize(); j++) {
+                matrixArray[i][j] = vectors[i].getComponent(j);
+            }
+        }
+
         rows = new Vector[vectors.length];
 
         for (int i = 0; i < rows.length; i++) {
-            rows[i] = new Vector(vectors[i]);
+            rows[i] = new Vector(matrixArray[i]);
         }
     }
 
@@ -72,7 +92,7 @@ public class Matrix {
             throw new IndexOutOfBoundsException("Переданный индекс равен " + index + ". Индекс должен быть в диапазоне значений от 0 до " + (rows.length - 1));
         }
 
-        return rows[index];
+        return new Vector(rows[index]);
     }
 
     public void setRow(int index, Vector vector) {
@@ -93,24 +113,22 @@ public class Matrix {
         }
 
         double[] array = new double[rows.length];
-        int i = 0;
 
-        for (Vector v : rows) {
-            array[i] = v.getComponent(index);
-            i++;
+        for (int i = 0; i < rows.length; i++) {
+            array[i] = rows[i].getComponent(index);
         }
 
         return new Vector(array);
     }
 
     public void transpose() {
-        Vector[] rowsArray = new Vector[getColumnsAmount()];
+        Vector[] newRows = new Vector[getColumnsAmount()];
 
         for (int i = 0; i < getColumnsAmount(); i++) {
-            rowsArray[i] = new Vector(getColumn(i));
+            newRows[i] = getColumn(i);
         }
 
-        rows = rowsArray;
+        rows = newRows;
     }
 
     public void multiplyByScalar(double factor) {
@@ -133,10 +151,10 @@ public class Matrix {
             }
         }
 
-        return getArrayDeterminant(matrixArray);
+        return getDeterminant(matrixArray);
     }
 
-    private static double getArrayDeterminant(double[][] matrixArray) {
+    private static double getDeterminant(double[][] matrixArray) {
         if (matrixArray.length == 1) {
             return matrixArray[0][0];
         }
@@ -145,10 +163,11 @@ public class Matrix {
             return matrixArray[0][0] * matrixArray[1][1] - matrixArray[0][1] * matrixArray[1][0];
         }
 
-        double[][] minor;
         double determinant = 0;
 
         for (int i = 0; i < matrixArray[0].length; i++) {
+            double[][] minor;
+
             minor = new double[matrixArray.length - 1][matrixArray[0].length - 1];
 
             for (int j = 1; j < matrixArray.length; j++) {
@@ -161,7 +180,7 @@ public class Matrix {
                 }
             }
 
-            determinant += matrixArray[0][i] * Math.pow(-1, i) * getArrayDeterminant(minor);
+            determinant += matrixArray[0][i] * Math.pow(-1, i) * getDeterminant(minor);
         }
 
         return determinant;
@@ -176,20 +195,20 @@ public class Matrix {
         double[] array = new double[getRowsAmount()];
 
         for (int i = 0; i < array.length; i++) {
-            array[i] = 0;
-
-            for (int j = 0; j < vector.getSize(); j++) {
-                array[i] += rows[i].getComponent(j) * vector.getComponent(j);
-            }
+            array[i] = Vector.getScalarProduct(rows[i], vector);
         }
 
         return new Vector(array);
     }
 
+    private static boolean haveNotSameSizes(Matrix matrix1, Matrix matrix2) {
+        return matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsAmount() != matrix2.getColumnsAmount();
+    }
+
     public void add(Matrix matrix) {
-        if (rows.length != matrix.rows.length || getColumnsAmount() != matrix.getColumnsAmount()) {
+        if (haveNotSameSizes(this, matrix)) {
             throw new IllegalArgumentException("Размеры матрицы 1: " + rows.length + "x" + getColumnsAmount() +
-                    "и матрицы 2: " + matrix.rows.length + "x" + matrix.getColumnsAmount() + " неравны. Сложение невозможно");
+                    " и матрицы 2: " + matrix.rows.length + "x" + matrix.getColumnsAmount() + " неравны. Сложение невозможно");
         }
 
         for (int i = 0; i < rows.length; i++) {
@@ -198,9 +217,9 @@ public class Matrix {
     }
 
     public void subtract(Matrix matrix) {
-        if (rows.length != matrix.rows.length || getColumnsAmount() != matrix.getColumnsAmount()) {
+        if (haveNotSameSizes(this, matrix)) {
             throw new IllegalArgumentException("Размеры матрицы 1: " + rows.length + "x" + getColumnsAmount() +
-                    "и матрицы 2: " + matrix.rows.length + "x" + matrix.getColumnsAmount() + " неравны. Вычитание невозможно");
+                    " и матрицы 2: " + matrix.rows.length + "x" + matrix.getColumnsAmount() + " неравны. Вычитание невозможно");
         }
 
         for (int i = 0; i < rows.length; i++) {
@@ -209,9 +228,9 @@ public class Matrix {
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsAmount() != matrix2.getColumnsAmount()) {
+        if (haveNotSameSizes(matrix1, matrix2)) {
             throw new IllegalArgumentException("Размеры матрицы 1: " + matrix1.rows.length + "x" + matrix1.getColumnsAmount() +
-                    "и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Сложение невозможно");
+                    " и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Сложение невозможно");
         }
 
         Matrix result = new Matrix(matrix1);
@@ -221,9 +240,9 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsAmount() != matrix2.getColumnsAmount()) {
+        if (haveNotSameSizes(matrix1, matrix2)) {
             throw new IllegalArgumentException("Размеры матрицы 1: " + matrix1.rows.length + "x" + matrix1.getColumnsAmount() +
-                    "и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Вычитание невозможно");
+                    " и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Вычитание невозможно");
         }
         Matrix result = new Matrix(matrix1);
         result.subtract(matrix2);
@@ -239,16 +258,14 @@ public class Matrix {
 
         Matrix product = new Matrix(matrix1.rows.length, matrix2.getColumnsAmount());
 
-        double sum = 0;
-
         for (int i = 0; i < product.rows.length; i++) {
             for (int j = 0; j < product.getColumnsAmount(); j++) {
+                double sum = 0;
                 for (int k = 0; k < matrix1.getColumnsAmount(); k++) {
                     sum += matrix1.rows[i].getComponent(k) * matrix2.rows[k].getComponent(j);
                 }
 
                 product.rows[i].setComponent(j, sum);
-                sum = 0;
             }
         }
 
