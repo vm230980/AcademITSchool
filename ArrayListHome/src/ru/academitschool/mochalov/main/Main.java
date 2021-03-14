@@ -1,3 +1,5 @@
+package ru.academitschool.mochalov.main;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
