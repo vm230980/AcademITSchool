@@ -55,6 +55,6 @@ public class Main {
         System.out.println("Список целых чисел 2: " + integerArrayList2);
 
         ArrayList<Integer> integerArrayList3 = getListWithoutMatches(integerArrayList2);
-        System.out.println("Список целых чисел 2 после удаления одинаковых элементов: " + integerArrayList3);
+        System.out.println("Список целых чисел 3 (список 2 без одинаковых элементов): " + integerArrayList3);
     }
 }
