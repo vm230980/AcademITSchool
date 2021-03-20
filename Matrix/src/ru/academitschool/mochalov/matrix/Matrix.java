@@ -166,9 +166,7 @@ public class Matrix {
         double determinant = 0;
 
         for (int i = 0; i < matrixArray[0].length; i++) {
-            double[][] minor;
-
-            minor = new double[matrixArray.length - 1][matrixArray[0].length - 1];
+            double[][] minor = new double[matrixArray.length - 1][matrixArray[0].length - 1];
 
             for (int j = 1; j < matrixArray.length; j++) {
                 for (int k = 0; k < matrixArray[0].length; k++) {
@@ -201,15 +199,15 @@ public class Matrix {
         return new Vector(array);
     }
 
-    private static boolean haveNotSameSizes(Matrix matrix1, Matrix matrix2) {
-        return matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsAmount() != matrix2.getColumnsAmount();
+    private static void checkSizes(Matrix matrix1, Matrix matrix2) {
+        if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsAmount() != matrix2.getColumnsAmount()) {
+            throw new IllegalArgumentException("Размеры матрицы 1: " + matrix1.rows.length + "x" + matrix1.getColumnsAmount() +
+                    " и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Операция невозможна");
+        }
     }
 
     public void add(Matrix matrix) {
-        if (haveNotSameSizes(this, matrix)) {
-            throw new IllegalArgumentException("Размеры матрицы 1: " + rows.length + "x" + getColumnsAmount() +
-                    " и матрицы 2: " + matrix.rows.length + "x" + matrix.getColumnsAmount() + " неравны. Сложение невозможно");
-        }
+        checkSizes(this, matrix);
 
         for (int i = 0; i < rows.length; i++) {
             rows[i].add(matrix.rows[i]);
@@ -217,10 +215,7 @@ public class Matrix {
     }
 
     public void subtract(Matrix matrix) {
-        if (haveNotSameSizes(this, matrix)) {
-            throw new IllegalArgumentException("Размеры матрицы 1: " + rows.length + "x" + getColumnsAmount() +
-                    " и матрицы 2: " + matrix.rows.length + "x" + matrix.getColumnsAmount() + " неравны. Вычитание невозможно");
-        }
+        checkSizes(this, matrix);
 
         for (int i = 0; i < rows.length; i++) {
             rows[i].subtract(matrix.rows[i]);
@@ -228,10 +223,7 @@ public class Matrix {
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        if (haveNotSameSizes(matrix1, matrix2)) {
-            throw new IllegalArgumentException("Размеры матрицы 1: " + matrix1.rows.length + "x" + matrix1.getColumnsAmount() +
-                    " и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Сложение невозможно");
-        }
+        checkSizes(matrix1, matrix2);
 
         Matrix result = new Matrix(matrix1);
         result.add(matrix2);
@@ -240,10 +232,8 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        if (haveNotSameSizes(matrix1, matrix2)) {
-            throw new IllegalArgumentException("Размеры матрицы 1: " + matrix1.rows.length + "x" + matrix1.getColumnsAmount() +
-                    " и матрицы 2: " + matrix2.rows.length + "x" + matrix2.getColumnsAmount() + " неравны. Вычитание невозможно");
-        }
+        checkSizes(matrix1, matrix2);
+
         Matrix result = new Matrix(matrix1);
         result.subtract(matrix2);
 
@@ -261,6 +251,7 @@ public class Matrix {
         for (int i = 0; i < product.rows.length; i++) {
             for (int j = 0; j < product.getColumnsAmount(); j++) {
                 double sum = 0;
+
                 for (int k = 0; k < matrix1.getColumnsAmount(); k++) {
                     sum += matrix1.rows[i].getComponent(k) * matrix2.rows[k].getComponent(j);
                 }
