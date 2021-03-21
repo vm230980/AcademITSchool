@@ -316,17 +316,17 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        throw new UnsupportedOperationException("MyArrayList class does not support subList method");
+        throw new UnsupportedOperationException("Данный метод не реализован.");
     }
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        throw new UnsupportedOperationException("MyArrayList class does not support subList method");
+        throw new UnsupportedOperationException("Данный метод не реализован.");
     }
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        throw new UnsupportedOperationException("MyArrayList class does not support subList method");
+        throw new UnsupportedOperationException("Данный метод не реализован.");
     }
 
     public void ensureCapacity(int capacity) {
