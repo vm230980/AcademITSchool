@@ -42,7 +42,7 @@ public class HashTable<T> implements Collection<T> {
         }
 
         for (T t : this) {
-            if (t.equals(o)) {
+            if (Objects.equals(t, o)) {
                 return true;
             }
         }
