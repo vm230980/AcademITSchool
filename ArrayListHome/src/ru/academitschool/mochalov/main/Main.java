@@ -30,7 +30,7 @@ public class Main {
         }
     }
 
-    public static ArrayList<Integer> getListWithoutMatches(ArrayList<Integer> list) {
+    public static ArrayList<Integer> getListWithoutDuplicates(ArrayList<Integer> list) {
         ArrayList<Integer> result = new ArrayList<>(list.size());
 
         for (Integer item : list) {
@@ -46,15 +46,15 @@ public class Main {
         ArrayList<String> strings = readLinesFromFileToArrayList("strings.txt");
         System.out.println("Строки, прочитанные из файла: " + strings);
 
-        ArrayList<Integer> integerArrayList1 = new ArrayList<>(Arrays.asList(1, 2, 8, 4, 5, 6, 3, 4, 9, 10, 12));
-        System.out.println("Список целых чисел 1: " + integerArrayList1);
-        deleteEvenNumbers(integerArrayList1);
-        System.out.println("Список целых 1 чисел после удаления четных чисел: " + integerArrayList1);
+        ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 8, 4, 5, 6, 3, 4, 9, 10, 12));
+        System.out.println("Список целых чисел 1: " + numbers);
+        deleteEvenNumbers(numbers);
+        System.out.println("Список целых 1 чисел после удаления четных чисел: " + numbers);
 
-        ArrayList<Integer> integerArrayList2 = new ArrayList<>(Arrays.asList(1, 2, 1, 4, 5, 5, 3, 4, 9, 2, 1, 0, 0));
-        System.out.println("Список целых чисел 2: " + integerArrayList2);
+        ArrayList<Integer> numbersWithDuplicates = new ArrayList<>(Arrays.asList(1, 2, 1, 4, 5, 5, 3, 4, 9, 2, 1, 0, 0));
+        System.out.println("Список целых чисел 2: " + numbersWithDuplicates);
 
-        ArrayList<Integer> integerArrayList3 = getListWithoutMatches(integerArrayList2);
-        System.out.println("Список целых чисел 3 (список 2 без одинаковых элементов): " + integerArrayList3);
+        ArrayList<Integer> numbersWithoutDuplicates = getListWithoutDuplicates(numbersWithDuplicates);
+        System.out.println("Список целых чисел 3 (список 2 без одинаковых элементов): " + numbersWithoutDuplicates);
     }
 }
