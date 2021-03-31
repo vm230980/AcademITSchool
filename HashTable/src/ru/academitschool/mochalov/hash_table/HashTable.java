@@ -60,6 +60,7 @@ public class HashTable<T> implements Collection<T> {
         private int listsItemIndex = 0;
         private final int startModCount = modCount;
 
+        @Override
         public boolean hasNext() {
             while (lists[listsItemIndex] == null || lists[listsItemIndex].isEmpty()) {
                 listsItemIndex++;
@@ -78,6 +79,7 @@ public class HashTable<T> implements Collection<T> {
             return false;
         }
 
+        @Override
         public T next() {
             if (startModCount != modCount) {
                 throw new ConcurrentModificationException("Хеш-таблица была изменена во время итерирования");
