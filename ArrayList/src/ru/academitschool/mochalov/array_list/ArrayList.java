@@ -3,20 +3,20 @@ package ru.academitschool.mochalov.array_list;
 import java.util.*;
 
 public class ArrayList<T> implements List<T> {
-    private static final int defaultCapacity = 10;
+    private static final int DEFAULT_CAPACITY = 10;
+
     private T[] items;
     private int size;
     private int modCount = 0;
 
     @SuppressWarnings("unchecked")
     public ArrayList() {
-        items = (T[]) new Object[defaultCapacity];
+        items = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     public ArrayList(int capacity) {
         if (capacity < 0) {
-            throw new IllegalArgumentException("Переданное значение минимальной вместимости списка " + capacity +
-                    "должно быть >= 0");
+            throw new IllegalArgumentException("Переданное значение минимальной вместимости списка " + capacity + " должно быть >= 0");
         }
 
         //noinspection unchecked
@@ -75,13 +75,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        Object[] objects = new Object[size];
-
-        if (size >= 0) {
-            objects = Arrays.copyOf(items, size);
-        }
-
-        return objects;
+        return Arrays.copyOf(items, size);
     }
 
     @Override
@@ -91,8 +85,8 @@ public class ArrayList<T> implements List<T> {
             return (T1[]) Arrays.copyOf(items, size, array.getClass());
         }
 
-        //noinspection unchecked
-        array = (T1[]) Arrays.copyOf(items, size, array.getClass());
+        //noinspection SuspiciousSystemArraycopy
+        System.arraycopy(items, 0, array, 0, size);
 
         if (array.length > size) {
             array[size] = null;
@@ -142,6 +136,10 @@ public class ArrayList<T> implements List<T> {
         checkCollection(c);
 
         checkIndex(index, false);
+
+        if (c.size() == 0) {
+            return false;
+        }
 
         ensureCapacity(size + c.size());
 
@@ -201,7 +199,7 @@ public class ArrayList<T> implements List<T> {
             return;
         }
 
-        Arrays.fill(items, null);
+        Arrays.fill(items, 0, size, null);
         size = 0;
         modCount++;
     }
@@ -219,8 +217,6 @@ public class ArrayList<T> implements List<T> {
         T oldItem = items[index];
 
         items[index] = item;
-        ++modCount;
-
         return oldItem;
     }
 
@@ -228,21 +224,15 @@ public class ArrayList<T> implements List<T> {
     public void add(int index, T item) {
         checkIndex(index, false);
 
-        if (index == size) {
-            if (size == items.length) {
-                increaseCapacity();
-            }
-
-            items[size] = item;
-        } else {
-            if (size >= items.length) {
-                increaseCapacity();
-            }
-
-            System.arraycopy(items, index, items, index + 1, size - index);
-            items[index] = item;
+        if (size >= items.length) {
+            increaseCapacity();
         }
 
+        if (index < size) {
+            System.arraycopy(items, index, items, index + 1, size - index);
+        }
+
+        items[index] = item;
         ++modCount;
         ++size;
     }
@@ -308,7 +298,8 @@ public class ArrayList<T> implements List<T> {
 
     private void increaseCapacity() {
         if (items.length == 0) {
-            items = Arrays.copyOf(items, defaultCapacity);
+            //noinspection unchecked
+            items = (T[]) new Object[DEFAULT_CAPACITY];
             return;
         }
 
@@ -321,21 +312,19 @@ public class ArrayList<T> implements List<T> {
         }
     }
 
-    private void checkIndex(int index, boolean isNotStrictInequality) {
-        if (isNotStrictInequality) {
+    private void checkIndex(int index, boolean isAccessTry) {
+        if (isAccessTry) {
             if (index < 0 || index >= size) {
-                throw new ArrayIndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. " +
-                        "Значение index должно быть в диапазоне {0, " + (size - 1) + "}.");
+                throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. " + "Значение index должно быть в диапазоне {0, " + (size - 1) + "}.");
             }
         }
 
         if (index < 0 || index > size) {
-            throw new ArrayIndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. " +
-                    "Значение index должно быть в диапазоне {0, " + size + "}.");
+            throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. " + "Значение index должно быть в диапазоне {0, " + size + "}.");
         }
     }
 
-    private void checkCollection(Collection<?> c) {
+    private static void checkCollection(Collection<?> c) {
         if (c == null) {
             throw new NullPointerException("Переданная коллекция не должна быть null");
         }
