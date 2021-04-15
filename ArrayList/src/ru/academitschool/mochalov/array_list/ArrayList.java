@@ -315,12 +315,12 @@ public class ArrayList<T> implements List<T> {
     private void checkIndex(int index, boolean isAccessTry) {
         if (isAccessTry) {
             if (index < 0 || index >= size) {
-                throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. " + "Значение index должно быть в диапазоне {0, " + (size - 1) + "}.");
+                throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. Значение index должно быть в диапазоне {0, " + (size - 1) + "}.");
             }
         }
 
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. " + "Значение index должно быть в диапазоне {0, " + size + "}.");
+            throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. Значение index должно быть в диапазоне {0, " + size + "}.");
         }
     }
 
