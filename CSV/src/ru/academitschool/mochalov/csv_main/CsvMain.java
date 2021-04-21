@@ -4,7 +4,7 @@ import ru.academitschool.mochalov.csv.CsvToHtmlConverter;
 
 import java.io.FileNotFoundException;
 
-public class CSVMain {
+public class CsvMain {
     public static void main(String[] args) {
         if (args.length != 2) {
             System.out.printf("Введено неверное количество аргументов - %d. Количество аргументов должно быть равно 2." + System.lineSeparator(), args.length);

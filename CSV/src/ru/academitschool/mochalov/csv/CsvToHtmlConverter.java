@@ -7,28 +7,24 @@ import java.util.Scanner;
 
 public class CsvToHtmlConverter {
     public static String getSpecialCharacterReplaced(char currentSymbol) {
-        char lessThan = (char) 60;
-        char greaterThan = (char) 62;
-        char ampersand = (char) 38;
-
-        if (currentSymbol == lessThan) {
+        if (currentSymbol == '<') {
             return "&lt;";
         }
 
-        if (currentSymbol == greaterThan) {
+        if (currentSymbol == '>') {
             return "&gt;";
         }
 
-        if (currentSymbol == ampersand) {
+        if (currentSymbol == '&') {
             return "&amp;";
         }
 
         return Character.toString(currentSymbol);
     }
 
-    public static void convertCsvToHtml(String PathToCsv, String PathToHtml) throws FileNotFoundException {
-        try (Scanner scanner = new Scanner(new FileInputStream(PathToCsv));
-             PrintWriter writer = new PrintWriter(PathToHtml)) {
+    public static void convertCsvToHtml(String pathToCsv, String pathToHtml) throws FileNotFoundException {
+        try (Scanner scanner = new Scanner(new FileInputStream(pathToCsv));
+             PrintWriter writer = new PrintWriter(pathToHtml)) {
 
             writer.println("<!DOCTYPE html>");
             writer.println("<html>");
@@ -61,28 +57,26 @@ public class CsvToHtmlConverter {
             while (scanner.hasNextLine()) {
                 currentString = scanner.nextLine();
 
-                writer.print("\t<tr>" + System.lineSeparator() + "\t\t");
-
                 if (currentString.length() == 0) {
                     continue;
                 }
 
+                writer.print("\t<tr>" + System.lineSeparator() + "\t\t");
+
                 boolean isCellStart = true;
                 boolean isThisInQuotes = false;
-                char doubleQuotes = (char) 34;
-                char comma = (char) 44;
 
                 for (int i = 0; i < currentString.length(); i++) {
-                    if (!isThisInQuotes && currentString.charAt(i) == doubleQuotes) {
+                    if (!isThisInQuotes && currentString.charAt(i) == '"') {
                         isThisInQuotes = true;
                     }
 
-                    if (!isThisInQuotes && currentString.charAt(i) == comma && (i == 0 || i >= currentString.length() - 1 || currentString.charAt(i + 1) == comma)) {
+                    if (!isThisInQuotes && currentString.charAt(i) == ',' && (i == 0 || i == currentString.length() - 1 || currentString.charAt(i + 1) == ',' || currentString.charAt(i - 1) == ',')) {
                         writer.print("<td></td>");
                         continue;
                     }
 
-                    if (!isThisInQuotes && currentString.charAt(i) == comma) {
+                    if (!isThisInQuotes && currentString.charAt(i) == ',') {
                         continue;
                     }
 
@@ -92,7 +86,7 @@ public class CsvToHtmlConverter {
                             isCellStart = false;
                         }
 
-                        if (i >= currentString.length() - 1 || currentString.charAt(i + 1) == comma) {
+                        if (i >= currentString.length() - 1 || currentString.charAt(i + 1) == ',') {
                             writer.print(getSpecialCharacterReplaced(currentString.charAt(i)) + "</td>");
                             isCellStart = true;
                         } else {
@@ -113,7 +107,7 @@ public class CsvToHtmlConverter {
                             continue;
                         }
 
-                        if (i >= currentString.length() - 1 && currentString.charAt(i) != doubleQuotes) {
+                        if (i >= currentString.length() - 1 && currentString.charAt(i) != '"') {
                             writer.print(getSpecialCharacterReplaced(currentString.charAt(i)));
 
                             do {
@@ -122,17 +116,17 @@ public class CsvToHtmlConverter {
                             } while (currentString.length() == 0);
 
                             i = -1;
-                        } else if (i >= currentString.length() - 1 && currentString.charAt(i) == doubleQuotes) {
+                        } else if (i >= currentString.length() - 1 && currentString.charAt(i) == '"') {
                             writer.print("</td>");
 
                             isCellStart = true;
                             isThisInQuotes = false;
-                        } else if (currentString.charAt(i) == doubleQuotes && currentString.charAt(i + 1) == comma) {
+                        } else if (currentString.charAt(i) == '"' && currentString.charAt(i + 1) == ',') {
                             writer.print("</td>");
 
                             isCellStart = true;
                             isThisInQuotes = false;
-                        } else if (currentString.charAt(i) == doubleQuotes && currentString.charAt(i + 1) == doubleQuotes) {
+                        } else if (currentString.charAt(i) == '"' && currentString.charAt(i + 1) == '"') {
                             writer.print("\"");
 
                             if (i + 2 == currentString.length()) {
