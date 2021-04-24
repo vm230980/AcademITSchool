@@ -1,10 +1,10 @@
-package ru.academitschool.mochalov.person;
+package ru.academitschool.mochalov.lambdas_person;
 
-public class Person {
+public class LambdasPerson {
     private String name;
     private int age;
 
-    public Person(String name, int age) {
+    public LambdasPerson(String name, int age) {
         this.name = name;
         this.age = age;
     }
