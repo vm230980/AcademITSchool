@@ -9,26 +9,31 @@ public class HashTableMain {
     public static void main(String[] args) {
         HashTable<Double> hashTable = new HashTable<>();
         System.out.println("Хеш-таблица пустая?: " + hashTable.isEmpty());
+        Object[] objects = hashTable.toArray();
+        System.out.println("Массив, полученный из Хеш-таблицы 1: " + Arrays.toString(objects));
 
         hashTable.add(1.1);
-        System.out.println("Хеш-таблица: " + Arrays.toString(hashTable.toArray()));
         hashTable.add(22.2);
         hashTable.add(155.1);
         hashTable.add(-8.0);
+        hashTable.add(null);
+
+        System.out.println("Хеш-таблица: " + Arrays.toString(hashTable.toArray()));
+
         System.out.println("Хеш-таблица: " + Arrays.toString(hashTable.toArray()));
 
         System.out.println("Хеш-таблица пустая?: " + hashTable.isEmpty());
         System.out.println("Размер Хеш-таблицы: " + hashTable.size());
         System.out.println("Содержит ли Хеш-таблица элемент со значением \"-8.0\"?: " + hashTable.contains(-8.0));
 
-        Object[] objects = hashTable.toArray();
-        System.out.println("Массив, полученный из Хеш-таблицы 1: " + Arrays.toString(objects));
+        Object[] objects2 = hashTable.toArray();
+        System.out.println("Массив, полученный из Хеш-таблицы 1: " + Arrays.toString(objects2));
         Double[] numbers = hashTable.toArray(new Double[]{});
         System.out.println("Массив Double, полученный из Хеш-таблиц 1: " + Arrays.toString(numbers));
 
         System.out.println("Удалим из Хеш-таблицы элемент со значением \"155.1\". Был ли удален такой элемент?: " + hashTable.remove(155.1));
         System.out.println("Хеш-таблица: " + Arrays.toString(hashTable.toArray()));
-        ArrayList<Double> arrayList1 = new ArrayList<>(Arrays.asList(115.0, 300.0, 0.09, 1.1));
+        ArrayList<Double> arrayList1 = new ArrayList<>(Arrays.asList(-8.0, null, 1.1, 0.1));
         System.out.println("Список 1: " + arrayList1);
         System.out.println("Содержит ли Хеш-таблица все значения Списка 1?: " + hashTable.containsAll(arrayList1));
 
