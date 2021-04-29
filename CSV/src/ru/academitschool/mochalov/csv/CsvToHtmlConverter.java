@@ -25,7 +25,6 @@ public class CsvToHtmlConverter {
     public static void convertCsvToHtml(String pathToCsv, String pathToHtml) throws FileNotFoundException {
         try (Scanner scanner = new Scanner(new FileInputStream(pathToCsv));
              PrintWriter writer = new PrintWriter(pathToHtml)) {
-
             writer.println("<!DOCTYPE html>");
             writer.println("<html>");
             writer.println(" <head>");
@@ -33,7 +32,7 @@ public class CsvToHtmlConverter {
             writer.println("    <title>Таблица, полученная из .csv</title>");
             writer.println("    <style>");
             writer.println("   table {");
-            writer.println("    width: 100%; /* Ширина таблицы */");
+            writer.println("    width: 50%; /* Ширина таблицы */");
             writer.println("    border: 4px single black; /* Рамка вокруг таблицы */");
             writer.println("    border-collapse: collapse; /* Отображать только одинарные линии */");
             writer.println("   }");
@@ -45,6 +44,7 @@ public class CsvToHtmlConverter {
             writer.println("   }");
             writer.println("   td {");
             writer.println("    padding: 5px; /* Поля вокруг содержимого ячеек */");
+            writer.println("    text-align: center; /* Выравнивание по центру */");
             writer.println("    border: 1px solid black; /* Граница вокруг ячеек */");
             writer.println("   }");
             writer.println("  </style>");
@@ -71,12 +71,11 @@ public class CsvToHtmlConverter {
                         isThisInQuotes = true;
                     }
 
-                    if (!isThisInQuotes && currentString.charAt(i) == ',' && (i == 0 || i == currentString.length() - 1 || currentString.charAt(i + 1) == ',' || currentString.charAt(i - 1) == ',')) {
-                        writer.print("<td></td>");
-                        continue;
-                    }
-
                     if (!isThisInQuotes && currentString.charAt(i) == ',') {
+                        if (i == 0 || i == currentString.length() - 1 || currentString.charAt(i - 1) == ',') {
+                            writer.print("<td></td>");
+                        }
+
                         continue;
                     }
 
@@ -118,17 +117,14 @@ public class CsvToHtmlConverter {
                             i = -1;
                         } else if (i >= currentString.length() - 1 && currentString.charAt(i) == '"') {
                             writer.print("</td>");
-
                             isCellStart = true;
                             isThisInQuotes = false;
                         } else if (currentString.charAt(i) == '"' && currentString.charAt(i + 1) == ',') {
                             writer.print("</td>");
-
                             isCellStart = true;
                             isThisInQuotes = false;
                         } else if (currentString.charAt(i) == '"' && currentString.charAt(i + 1) == '"') {
                             writer.print("\"");
-
                             if (i + 2 == currentString.length()) {
                                 writer.print("<br/>");
                                 currentString = scanner.nextLine();

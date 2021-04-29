@@ -9,6 +9,7 @@ public class CsvMain {
         if (args.length != 2) {
             System.out.printf("Введено неверное количество аргументов - %d. Количество аргументов должно быть равно 2." + System.lineSeparator(), args.length);
             System.out.println("В качестве первого аргумента нужно указать путь к файлу \".csv\", в качестве второго аргумента нужно указать путь к файлу \".html\"");
+
             return;
         }
 
