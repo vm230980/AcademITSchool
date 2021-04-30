@@ -36,13 +36,15 @@ public class Main {
         list1.addFirst(-1);
         System.out.println("Значения элементов списка 1: " + list1);
 
-        System.out.println("Вставим в список 1 элемент по индексу 6");
+        System.out.println("Вставим в список 1 элемент со значением \"-100\" по индексу 6");
         list1.insert(6, -100);
         System.out.println("Значения элементов списка 1 : " + list1);
         System.out.println("Размер списка 1 равен: " + list1.getSize());
-
+        System.out.println("Вставим в список 1 элемент со значением \"999\" по индексу 10");
+        list1.insert(10, 999);
+        System.out.println("Значения элементов списка 1: " + list1);
         list1.insert(6, 3);
-        System.out.println("ВНИМАНИЕ Значения элементов списка 1: " + list1);
+        System.out.println("Значения элементов списка 1: " + list1);
         System.out.println("Размер списка 1 равен: " + list1.getSize());
         list1.insert(6, 3);
         System.out.println("Значения элементов списка 1: " + list1);
@@ -51,6 +53,8 @@ public class Main {
         System.out.println("Значения элементов списка 1: " + list1);
         System.out.println("Размер списка 1 равен: " + list1.getSize());
         System.out.println("Удаляем первый элемент списка 1 со значением: " + list1.deleteFirst());
+        System.out.println("Значения элементов списка 1: " + list1);
+        System.out.println("Удаляем элемент списка 1 с индексом 3: " + list1.delete(3));
         System.out.println("Значения элементов списка 1: " + list1);
         System.out.println("Размер списка 1 равен: " + list1.getSize());
         list1.reverse();

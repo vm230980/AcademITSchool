@@ -47,13 +47,13 @@ public class SinglyLinkedList<T> {
     }
 
     public T getData(int index) {
-        checkIndex(index, true);
+        checkIndex(index, false);
 
         return getItem(index).getData();
     }
 
     public T setData(int index, T data) {
-        checkIndex(index, true);
+        checkIndex(index, false);
 
         T oldData = getItem(index).getData();
 
@@ -63,15 +63,18 @@ public class SinglyLinkedList<T> {
     }
 
     public T delete(int index) {
-        checkIndex(index, true);
+        checkIndex(index, false);
 
         if (index == 0) {
             return deleteFirst();
         }
 
-        T deletedData = getItem(index).getData();
+        ListItem<T> previousItem = getItem(index - 1);
 
-        getItem(index - 1).setNext(getItem(index).getNext());
+        T deletedData = previousItem.getNext().getData();
+
+        previousItem.setNext(previousItem.getNext().getNext());
+
         size--;
 
         return deletedData;
@@ -83,21 +86,17 @@ public class SinglyLinkedList<T> {
     }
 
     public void insert(int index, T data) {
-        checkIndex(index, false);
+        checkIndex(index, true);
 
         if (index == 0) {
             addFirst(data);
             return;
         }
 
-        int edge = Math.min(index, size - 1);
+        ListItem<T> previousItem = getItem(index - 1);
 
-        if (index == size) {
-            getItem(edge).setNext(new ListItem<>(data));
-        } else {
-            ListItem<T> newItem = new ListItem<>(data, getItem(edge));
-            getItem(edge - 1).setNext(newItem);
-        }
+        ListItem<T> newItem = new ListItem<>(data, previousItem.getNext());
+        previousItem.setNext(newItem);
 
         size++;
     }
@@ -165,15 +164,13 @@ public class SinglyLinkedList<T> {
         return itemByIndex;
     }
 
-    private void checkIndex(int index, boolean isAccessTry) {
-        if (isAccessTry) {
-            if (index < 0 || index >= size) {
-                throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. Значение index должно быть в диапазоне {0, " + (size - 1) + "}.");
+    private void checkIndex(int index, boolean isInsertTry) {
+        if (isInsertTry) {
+            if (index < 0 || index > size) {
+                throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. Значение index должно быть в диапазоне {0, " + size + "}.");
             }
-        }
-
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. Значение index должно быть в диапазоне {0, " + size + "}.");
+        } else if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Переданное значение индекса " + index + " некорректно. Значение index должно быть в диапазоне {0, " + (size - 1) + "}.");
         }
     }
 
