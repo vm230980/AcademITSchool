@@ -24,7 +24,7 @@ public class HashTableMain {
 
         System.out.println("Хеш-таблица пустая?: " + hashTable.isEmpty());
         System.out.println("Размер Хеш-таблицы: " + hashTable.size());
-        System.out.println("Содержит ли Хеш-таблица элемент со значением \"-8.0\"?: " + hashTable.contains(-8.0));
+        System.out.println("Содержит ли Хеш-таблица элемент со значением \"-9.0\"?: " + hashTable.contains(-9.0));
 
         Object[] objects2 = hashTable.toArray();
         System.out.println("Массив, полученный из Хеш-таблицы 1: " + Arrays.toString(objects2));

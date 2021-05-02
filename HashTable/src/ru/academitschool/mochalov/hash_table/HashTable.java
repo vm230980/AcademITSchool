@@ -5,7 +5,7 @@ import java.util.*;
 public class HashTable<T> implements Collection<T> {
     private static final int DEFAULT_ARRAY_SIZE = 5;
 
-    private ArrayList<T>[] lists;
+    private final ArrayList<T>[] lists;
     private int size = 0;
     private int modCount = 0;
 
@@ -34,15 +34,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean contains(Object o) {
-        if (isEmpty()) {
-            return false;
-        }
-
-        int index = Math.abs(Objects.hashCode(o) % lists.length);
-
-        if (lists[index] == null || lists[index].isEmpty()) {
-            return false;
-        }
+        int index = getIndex(o);
 
         return lists[index].contains(o);
     }
@@ -94,7 +86,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        Object[] objects = new Object[size()];
+        Object[] objects = new Object[size];
         int i = 0;
 
         for (T item : this) {
@@ -129,7 +121,7 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean add(T item) {
-        int index = Math.abs(Objects.hashCode(item) % lists.length);
+        int index = getIndex(item);
 
         if (lists[index] == null) {
             lists[index] = new ArrayList<>();
@@ -148,7 +140,7 @@ public class HashTable<T> implements Collection<T> {
             return false;
         }
 
-        int index = Math.abs(Objects.hashCode(o) % lists.length);
+        int index = getIndex(o);
 
         if (lists[index] == null || lists[index].isEmpty()) {
             return false;
@@ -189,13 +181,11 @@ public class HashTable<T> implements Collection<T> {
             return false;
         }
 
-        boolean wasAdded = false;
-
         for (T item : c) {
-            wasAdded = add(item);
+            add(item);
         }
 
-        return wasAdded;
+        return true;
     }
 
     @Override
@@ -230,7 +220,7 @@ public class HashTable<T> implements Collection<T> {
             throw new NullPointerException("Переданная коллекция не должна быть null");
         }
 
-        boolean wasDeleted = false;
+        boolean wasRemoved = false;
 
         for (ArrayList<T> list : lists) {
             if (list == null || list.isEmpty()) {
@@ -240,14 +230,14 @@ public class HashTable<T> implements Collection<T> {
             int listSizeBefore = list.size();
 
             if (list.retainAll(c)) {
-                wasDeleted = true;
+                wasRemoved = true;
             }
 
             size -= listSizeBefore - list.size();
             modCount++;
         }
 
-        return wasDeleted;
+        return wasRemoved;
     }
 
     @Override
@@ -259,5 +249,9 @@ public class HashTable<T> implements Collection<T> {
         Arrays.fill(lists, null);
         size = 0;
         modCount++;
+    }
+
+    private int getIndex(Object o) {
+        return Math.abs(Objects.hashCode(o) % lists.length);
     }
 }
