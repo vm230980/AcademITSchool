@@ -72,9 +72,13 @@ public class CsvToHtmlConverter {
                     }
 
                     if (!isThisInQuotes && currentString.charAt(i) == ',') {
-                        if (i == 0 || i == currentString.length() - 1 || currentString.charAt(i - 1) == ',') {
+                        if (i == 0 ||  currentString.charAt(i - 1) == ',') {
                             writer.print("<td></td>");
                         }
+
+                       if (i == currentString.length() - 1)  {
+                           writer.print("<td></td>");
+                       }
 
                         continue;
                     }
