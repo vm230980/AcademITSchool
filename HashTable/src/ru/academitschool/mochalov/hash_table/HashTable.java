@@ -6,8 +6,8 @@ public class HashTable<T> implements Collection<T> {
     private static final int DEFAULT_ARRAY_SIZE = 5;
 
     private final ArrayList<T>[] lists;
-    private int size = 0;
-    private int modCount = 0;
+    private int size;
+    private int modCount;
 
     public HashTable() {
         this(DEFAULT_ARRAY_SIZE);
@@ -36,6 +36,10 @@ public class HashTable<T> implements Collection<T> {
     public boolean contains(Object o) {
         int index = getIndex(o);
 
+        if (lists[index] == null) {
+            return false;
+        }
+
         return lists[index].contains(o);
     }
 
@@ -46,7 +50,7 @@ public class HashTable<T> implements Collection<T> {
 
     private class HashTableIterator implements Iterator<T> {
         private int currentListIndex = -1;
-        private int count = 0;
+        private int count;
         private Iterator<T> listIterator;
         private final int startModCount = modCount;
 
