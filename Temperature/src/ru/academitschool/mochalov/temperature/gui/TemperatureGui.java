@@ -1,7 +1,7 @@
 package ru.academitschool.mochalov.temperature.gui;
 
 import ru.academitschool.mochalov.temperature.converter.TemperatureConverter;
-import ru.academitschool.mochalov.temperature.scales.Scale;
+import ru.academitschool.mochalov.temperature.scales.TemperatureScale;
 
 import javax.swing.*;
 
@@ -44,7 +44,7 @@ public class TemperatureGui {
 
             JLabel title = new JLabel("КОНВЕРТЕР ТЕМПЕРАТУР", SwingConstants.CENTER);
             title.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-            title.setFont(new Font("Dialog", Font.BOLD, 20));
+            title.setFont(new Font("Dialog", Font.BOLD, 18));
             box.add(title);
 
             JLabel inputInviteText = new JLabel("Введите значение:");
@@ -70,8 +70,8 @@ public class TemperatureGui {
             int i = 0;
             String[] names = new String[temperatureConverter.getScales().length];
 
-            for (Scale temperature : temperatureConverter.getScales()) {
-                names[i] = temperature.getName();
+            for (TemperatureScale scale : temperatureConverter.getScales()) {
+                names[i] = scale.getName();
                 i++;
             }
 
@@ -116,6 +116,6 @@ public class TemperatureGui {
     }
 
     public void show() {
-        frame.setVisible(true);
+        SwingUtilities.invokeLater(() -> frame.setVisible(true));
     }
 }

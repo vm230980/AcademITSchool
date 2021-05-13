@@ -1,11 +1,11 @@
 package ru.academitschool.mochalov.temperature.converter;
 
-import ru.academitschool.mochalov.temperature.scales.Scale;
+import ru.academitschool.mochalov.temperature.scales.TemperatureScale;
 
 public class TemperatureConverter {
-    private final Scale[] scales;
+    private final TemperatureScale[] scales;
 
-    public TemperatureConverter(Scale[] scales) {
+    public TemperatureConverter(TemperatureScale[] scales) {
         this.scales = scales;
     }
 
@@ -13,7 +13,7 @@ public class TemperatureConverter {
         return scales[toTemperatureIndex].getConvertedFromCelsiusScale(scales[fromTemperatureIndex].getConvertedToCelsiusScale(value));
     }
 
-    public Scale[] getScales() {
+    public TemperatureScale[] getScales() {
         return scales;
     }
 }

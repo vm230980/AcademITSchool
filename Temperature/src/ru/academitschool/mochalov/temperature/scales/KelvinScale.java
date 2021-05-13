@@ -1,6 +1,6 @@
 package ru.academitschool.mochalov.temperature.scales;
 
-public class KelvinScale implements Scale {
+public class KelvinScale implements TemperatureScale {
     @Override
     public String getName() {
         return "Градусы Кельвина";

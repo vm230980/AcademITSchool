@@ -1,6 +1,6 @@
 package ru.academitschool.mochalov.temperature.scales;
 
-public interface Scale {
+public interface TemperatureScale {
     String getName();
 
     double getConvertedToCelsiusScale(double valueThis);

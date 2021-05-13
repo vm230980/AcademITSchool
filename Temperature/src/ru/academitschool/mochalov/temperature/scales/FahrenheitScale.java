@@ -1,6 +1,6 @@
 package ru.academitschool.mochalov.temperature.scales;
 
-public class FahrenheitScale implements Scale {
+public class FahrenheitScale implements TemperatureScale {
     @Override
     public String getName() {
         return "Градусы Фаренгейта";
