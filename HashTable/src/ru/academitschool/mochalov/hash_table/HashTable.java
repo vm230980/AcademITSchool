@@ -36,11 +36,7 @@ public class HashTable<T> implements Collection<T> {
     public boolean contains(Object o) {
         int index = getIndex(o);
 
-        if (lists[index] == null) {
-            return false;
-        }
-
-        return lists[index].contains(o);
+        return lists[index] != null && lists[index].contains(o);
     }
 
     @Override
