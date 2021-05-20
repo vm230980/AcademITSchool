@@ -7,12 +7,12 @@ public class CelsiusScale implements TemperatureScale {
     }
 
     @Override
-    public double getConvertedToCelsiusScale(double valueCelsius) {
-        return valueCelsius;
+    public double convertToCelsiusScale(double temperature) {
+        return temperature;
     }
 
     @Override
-    public double getConvertedFromCelsiusScale(double celsius) {
-        return celsius;
+    public double convertFromCelsiusScale(double temperature) {
+        return temperature;
     }
 }

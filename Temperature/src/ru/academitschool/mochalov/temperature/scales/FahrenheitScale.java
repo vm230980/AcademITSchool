@@ -7,12 +7,12 @@ public class FahrenheitScale implements TemperatureScale {
     }
 
     @Override
-    public double getConvertedToCelsiusScale(double valueFahrenheit) {
-        return (valueFahrenheit - 32) * 5 / 9;
+    public double convertToCelsiusScale(double temperature) {
+        return (temperature - 32) * 5 / 9;
     }
 
     @Override
-    public double getConvertedFromCelsiusScale(double celsius) {
-        return celsius * 1.8 + 32;
+    public double convertFromCelsiusScale(double temperature) {
+        return temperature * 1.8 + 32;
     }
 }

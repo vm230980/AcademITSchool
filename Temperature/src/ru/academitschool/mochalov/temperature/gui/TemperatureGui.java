@@ -106,7 +106,7 @@ public class TemperatureGui {
 
                 try {
                     double degrees = Double.parseDouble(inputField.getText());
-                    outputField.setText(String.format("%.2f", temperatureConverter.getConverted(degrees, fromList.getSelectedIndex(), toList.getSelectedIndex())));
+                    outputField.setText(String.format("%.2f", temperatureConverter.getConvertedTemperature(degrees, fromList.getSelectedIndex(), toList.getSelectedIndex())));
                 } catch (NumberFormatException e) {
                     JLabel error = new JLabel("<html><center>Неверный формат ввода.<br />Введите число в формате десятичной дроби <br />с разделителем в виде точки \"%.%\",<br />либо в экспоненциальном виде \"%e%\"</html>");
                     JOptionPane.showMessageDialog(frame, error, "Ошибка ввода", ERROR_MESSAGE);

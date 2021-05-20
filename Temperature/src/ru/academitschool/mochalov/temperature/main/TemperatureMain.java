@@ -9,7 +9,10 @@ import ru.academitschool.mochalov.temperature.scales.TemperatureScale;
 
 public class TemperatureMain {
     public static void main(String[] args) {
-        TemperatureScale[] scales = new TemperatureScale[]{new CelsiusScale(), new FahrenheitScale(), new KelvinScale()};
+        TemperatureScale[] scales = {
+                new CelsiusScale(),
+                new FahrenheitScale(),
+                new KelvinScale()};
         TemperatureGui gui = new TemperatureGui(new TemperatureConverter(scales));
         gui.show();
     }

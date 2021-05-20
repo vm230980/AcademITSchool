@@ -9,8 +9,8 @@ public class TemperatureConverter {
         this.scales = scales;
     }
 
-    public double getConverted(double value, int fromTemperatureIndex, int toTemperatureIndex) {
-        return scales[toTemperatureIndex].getConvertedFromCelsiusScale(scales[fromTemperatureIndex].getConvertedToCelsiusScale(value));
+    public double getConvertedTemperature(double temperature, int fromTemperatureScaleIndex, int toTemperatureScaleIndex) {
+        return scales[toTemperatureScaleIndex].convertFromCelsiusScale(scales[fromTemperatureScaleIndex].convertToCelsiusScale(temperature));
     }
 
     public TemperatureScale[] getScales() {
