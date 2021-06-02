@@ -12,7 +12,9 @@ public class TemperatureMain {
         TemperatureScale[] scales = {
                 new CelsiusScale(),
                 new FahrenheitScale(),
-                new KelvinScale()};
+                new KelvinScale()
+        };
+
         TemperatureGui gui = new TemperatureGui(new TemperatureConverter(scales));
         gui.show();
     }
